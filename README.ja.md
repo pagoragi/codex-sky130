@@ -4,6 +4,16 @@
 
 CodexからIIC-OSIC-TOOLSを直接操作するための、GitHubで再現可能なSKY130A設計環境です。OpenADAやMCPは必要ありません。DockerイメージとSKY130/open_pdksのリビジョンは`docker/environment.lock.json`で固定しています。
 
+## デモ
+
+Codexに1.8 V動作の5トランジスタOTAを依頼し、環境確認、回路生成、ngspiceシミュレーション、結果解析、XschemでのGUI確認まで実行した例です。
+
+[![CodexによるSKY130A 5トランジスタOTA設計デモ](docs/assets/codex-sky130-demo-ja.png)](docs/assets/codex-sky130-demo-ja.mp4)
+
+[▶ デモ動画を再生（29秒、音声なし）](docs/assets/codex-sky130-demo-ja.mp4)
+
+元動画の0:00〜10:15は30倍速、それ以降は結果を確認しやすいように2倍速にしています。
+
 ## クイックスタート
 
 ```sh
