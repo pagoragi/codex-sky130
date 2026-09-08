@@ -1,5 +1,7 @@
 # Codex + IIC-OSIC-TOOLS + SKY130A
 
+[English](README.md) | [日本語](README.ja.md)
+
 This GitHub-ready project gives Codex a small, reproducible command-line
 interface to IIC-OSIC-TOOLS. OpenADA and MCP are not required. The container
 image and SKY130/open_pdks revision are pinned in `docker/environment.lock.json`.
