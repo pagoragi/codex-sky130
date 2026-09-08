@@ -1,0 +1,40 @@
+name: SKY130 verification
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "design/**"
+      - "tests/**"
+      - "scripts/**"
+      - "xschemrc"
+      - "Makefile"
+      - "docker/environment.lock.json"
+
+permissions:
+  contents: read
+
+jobs:
+  smoke-and-inverter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pull pinned IIC-OSIC-TOOLS image
+        run: docker pull hpretl/iic-osic-tools@sha256:5d6adf1f437cd0f2f8f8614488ec3c247ba8c768f4663a25d5e997b30ccb13b0
+      - name: Run SKY130A simulations
+        run: |
+          docker run --rm \
+            --entrypoint bash \
+            -v "$PWD:/workspace" \
+            hpretl/iic-osic-tools@sha256:5d6adf1f437cd0f2f8f8614488ec3c247ba8c768f4663a25d5e997b30ccb13b0 \
+            -c '
+              source /headless/.bashrc >/dev/null 2>&1
+              source /foss/tools/sak/sak-pdk-script.sh sky130A >/dev/null || true
+              cd /workspace
+              mkdir -p build
+              ngspice -b -o build/sky130_nmos_dc.log tests/sky130_nmos_dc.spice
+              scripts/check-smoke.sh build/sky130_nmos_dc.log build/sky130_nmos_dc.dat
+              ngspice -b -o build/cmos_inverter.log tests/cmos_inverter_dc.spice
+              python3 scripts/analyze-inverter.py build/cmos_inverter_vtc.dat
+            '

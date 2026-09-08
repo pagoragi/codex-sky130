@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+container="${IIC_CONTAINER:-}"
+project="${IIC_PROJECT:-/foss/designs/codex-sky130}"
+pdk="${IIC_PDK:-sky130A}"
+pdk_script="/foss/tools/sak/sak-pdk-script.sh"
+
+die() {
+  printf 'eda: %s\n' "$*" >&2
+  exit 1
+}
+
+if [[ -z "$container" ]]; then
+  for candidate in codex-sky130-eda iic-osic-tools_xvnc_uid_501; do
+    if docker inspect "$candidate" >/dev/null 2>&1; then
+      container="$candidate"
+      break
+    fi
+  done
+fi
+
+[[ -n "$container" ]] || die "no IIC-OSIC-TOOLS container found; run bin/start"
+docker inspect "$container" >/dev/null 2>&1 || die "container not found: $container"
+
+case "${1:-}" in
+  doctor)
+    docker exec "$container" bash -c '
+      source /headless/.bashrc >/dev/null 2>&1
+      source "$1" "$2" >/dev/null
+      set -e
+      cd "$3"
+      tool_version() {
+        local name="$1"
+        local version
+        shift
+        version="$("$@" 2>&1 | head -n 1)"
+        version="${version//\\\\/\\\\\\\\}"
+        version="${version//\\\"/\\\\\\\"}"
+        printf "  \\\"%s\\\": \\\"%s\\\"" "$name" "$version"
+      }
+      printf "{\n"
+      printf "  \\\"container\\\": \\\"%s\\\",\n" "$4"
+      printf "  \\\"pdk\\\": \\\"%s\\\",\n" "$PDK"
+      printf "  \\\"pdk_root\\\": \\\"%s\\\",\n" "$PDK_ROOT"
+      printf "  \\\"pdk_path\\\": \\\"%s\\\",\n" "$PDKPATH"
+      tool_version xschem xschem --version; printf ",\n"
+      tool_version ngspice bash -c "ngspice --version 2>&1 | grep -m1 ngspice-"; printf ",\n"
+      tool_version magic magic --version; printf ",\n"
+      tool_version klayout klayout -v; printf "\n}\n"
+    ' _ "$pdk_script" "$pdk" "$project" "$container"
+    ;;
+  run)
+    shift
+    (($# > 0)) || die "usage: bin/eda run COMMAND [ARG ...]"
+    docker exec "$container" bash -c '
+      source /headless/.bashrc >/dev/null 2>&1
+      source "$1" "$2" >/dev/null
+      set -e
+      cd "$3"
+      shift 3
+      exec "$@"
+    ' _ "$pdk_script" "$pdk" "$project" "$@"
+    ;;
+  shell)
+    exec docker exec -it "$container" bash -c \
+      "source /headless/.bashrc >/dev/null 2>&1; source '$pdk_script' '$pdk' >/dev/null; cd '$project'; exec bash"
+    ;;
+  xschem)
+    exec docker exec \
+      -u 1000 \
+      -e HOME=/headless \
+      -e DISPLAY="${IIC_DISPLAY:-:1}" \
+      -e XAUTHORITY=/headless/.Xauthority \
+      "$container" \
+      /foss/tools/bin/xschem \
+      --rcfile "$project/xschemrc" \
+      "$project/design/xschem/cmos_inverter.sch"
+    ;;
+  *)
+    die "usage: bin/eda {doctor|run COMMAND [ARG ...]|shell|xschem}"
+    ;;
+esac

@@ -1,0 +1,16 @@
+* SKY130A NMOS DC smoke test for IIC-OSIC-TOOLS
+.lib /foss/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice tt
+
+VDD vdd 0 1.8
+VG  gate 0 1.8
+RLOAD vdd drain 10k
+XM1 drain gate 0 0 sky130_fd_pr__nfet_01v8 L=0.15 W=1.0 nf=1
+
+.control
+set noaskquit
+dc VG 0 1.8 0.1
+wrdata build/sky130_nmos_dc.dat v(gate) v(drain) -i(VDD)
+quit
+.endc
+
+.end

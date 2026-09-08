@@ -1,0 +1,10 @@
+{
+  "container": "iic-osic-tools_xvnc_uid_501",
+  "pdk": "sky130A",
+  "pdk_root": "/foss/pdks",
+  "pdk_path": "/foss/pdks/sky130A",
+  "xschem": "XSCHEM V3.4.8RC",
+  "ngspice": "** ngspice-46 : Circuit level simulation program",
+  "magic": "8.3.678",
+  "klayout": "KLayout 0.30.9"
+}

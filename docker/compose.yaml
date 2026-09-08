@@ -1,0 +1,16 @@
+name: codex-sky130
+
+services:
+  eda:
+    image: hpretl/iic-osic-tools@sha256:5d6adf1f437cd0f2f8f8614488ec3c247ba8c768f4663a25d5e997b30ccb13b0
+    container_name: codex-sky130-eda
+    user: "1000:1000"
+    working_dir: /foss/designs/codex-sky130
+    command: ["--wait"]
+    shm_size: 64mb
+    ports:
+      - "127.0.0.1:${IIC_NOVNC_PORT:-6080}:80"
+      - "127.0.0.1:${IIC_VNC_PORT:-5902}:5901"
+    volumes:
+      - ..:/foss/designs/codex-sky130:rw
+    restart: unless-stopped

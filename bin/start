@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+docker compose -f "$root/docker/compose.yaml" up -d
+echo "IIC-OSIC-TOOLS is available at http://localhost:${IIC_NOVNC_PORT:-6080}/"

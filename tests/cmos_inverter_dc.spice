@@ -1,0 +1,20 @@
+* SKY130A 1.8 V CMOS inverter DC transfer characteristic
+.lib /foss/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice tt
+
+VDD vdd 0 1.8
+VIN in 0 0
+XM_P out in vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=2.0 nf=1
+XM_N out in 0 0 sky130_fd_pr__nfet_01v8 L=0.15 W=1.0 nf=1
+
+.control
+set noaskquit
+set wr_singlescale
+dc VIN 0 1.8 0.005
+wrdata build/cmos_inverter_vtc.dat v(out)
+meas dc vm when v(out)=v(in)
+meas dc voh find v(out) at=0
+meas dc vol find v(out) at=1.8
+quit
+.endc
+
+.end

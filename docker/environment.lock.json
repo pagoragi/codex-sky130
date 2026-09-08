@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-09-07",
+  "container": {
+    "image": "hpretl/iic-osic-tools",
+    "digest": "sha256:5d6adf1f437cd0f2f8f8614488ec3c247ba8c768f4663a25d5e997b30ccb13b0",
+    "architectures": ["amd64", "arm64"]
+  },
+  "pdk": {
+    "name": "sky130A",
+    "root": "/foss/pdks",
+    "open_pdks_revision": "f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
+  },
+  "tools": {
+    "xschem": "3.4.8RC",
+    "ngspice": "46",
+    "magic": "8.3.678",
+    "netgen": "1.5.323",
+    "klayout": "0.30.9"
+  }
+}

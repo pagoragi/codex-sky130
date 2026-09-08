@@ -1,0 +1,3 @@
+# Project-local Xschem configuration for IIC-OSIC-TOOLS SKY130A.
+# Start Xschem from this project directory so this file is discovered.
+source /foss/pdks/sky130A/libs.tech/xschem/xschemrc
