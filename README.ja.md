@@ -2,7 +2,7 @@
 
 [English](README.md) | [日本語](README.ja.md)
 
-CodexからIIC-OSIC-TOOLSを直接操作するための、GitHubで再現可能なSKY130A設計環境です。OpenADAやMCPは必要ありません。DockerイメージとSKY130/open_pdksのリビジョンは`docker/environment.lock.json`で固定しています。
+CodexからIIC-OSIC-TOOLSを直接操作するための、GitHubで再現可能なSKY130A設計環境です。DockerイメージとSKY130/open_pdksのリビジョンは`docker/environment.lock.json`で固定しています。
 
 ## デモ
 
