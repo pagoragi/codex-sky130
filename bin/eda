@@ -77,7 +77,21 @@ case "${1:-}" in
       --rcfile "$project/xschemrc" \
       "$project/design/xschem/cmos_inverter.sch"
     ;;
+  magic)
+    exec docker exec \
+      -u 1000 \
+      -e HOME=/headless \
+      -e DISPLAY="${IIC_DISPLAY:-:1}" \
+      -e XAUTHORITY=/headless/.Xauthority \
+      "$container" \
+      bash -c '
+        source /headless/.bashrc >/dev/null 2>&1
+        source "$1" "$2" >/dev/null
+        cd "$3"
+        exec magic -rcfile "$PDKPATH/libs.tech/magic/sky130A.magicrc" design/magic/cmos_inverter_layout.mag
+      ' _ "$pdk_script" "$pdk" "$project"
+    ;;
   *)
-    die "usage: bin/eda {doctor|run COMMAND [ARG ...]|shell|xschem}"
+    die "usage: bin/eda {doctor|run COMMAND [ARG ...]|shell|xschem|magic}"
     ;;
 esac

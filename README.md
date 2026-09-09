@@ -13,7 +13,9 @@ make start
 make doctor
 make smoke
 make inverter
+make inverter-layout-check
 make xschem
+make magic
 ```
 
 The project-managed noVNC desktop uses <http://localhost:6080/> by default.
@@ -77,6 +79,20 @@ make inverter-sim      # DC VTC and metrics
 make inverter          # both
 make xschem            # open the schematic with the SKY130A symbol paths
 ```
+
+### Inverter layout
+
+`design/magic/cmos_inverter_layout.mag` contains the Magic layout for the same NMOS and PMOS dimensions as the schematic. Metal 1 carries the power and body-tie connections; Metal 2 carries the input and output.
+
+```sh
+make inverter-drc          # Magic DRC
+make inverter-extract      # extract a SPICE netlist from layout
+make inverter-lvs          # compare layout and schematic with Netgen
+make inverter-layout-check # run DRC and LVS
+make magic                 # open the layout in the Magic GUI
+```
+
+The checked result is zero Magic DRC errors and Netgen LVS reporting `Circuits match uniquely`.
 
 The default noVNC display is `:1`. Override it with `IIC_DISPLAY` only if the
 container was launched with a different X display.

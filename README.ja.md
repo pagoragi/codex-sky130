@@ -19,7 +19,9 @@ make start
 make doctor
 make smoke
 make inverter
+make inverter-layout-check
 make xschem
+make magic
 ```
 
 プロジェクト管理のnoVNCデスクトップは、既定で <http://localhost:6080/> から開けます。既存の`iic-osic-tools_xvnc_uid_501`コンテナが動いている場合は、それも自動検出します。
@@ -70,6 +72,20 @@ make inverter-sim      # DC伝達特性とノイズマージンを測定
 make inverter          # 上記をまとめて実行
 make xschem            # SKY130A設定で回路図を開く
 ```
+
+### インバータレイアウト
+
+`design/magic/cmos_inverter_layout.mag`は、回路図と同じ寸法のNMOS/PMOSを配置したMagicレイアウトです。M1を電源とbody tie、M2を入力と出力に使用しています。
+
+```sh
+make inverter-drc          # Magic DRC
+make inverter-extract      # レイアウトからSPICEを抽出
+make inverter-lvs          # Netgenで回路図と比較
+make inverter-layout-check # DRCとLVSをまとめて実行
+make magic                 # Magic GUIでレイアウトを開く
+```
+
+検証済みの結果は、Magic DRCが0件、Netgen LVSが`Circuits match uniquely`です。
 
 既定のnoVNCディスプレイは`:1`です。コンテナが別のX displayで起動されている場合のみ、`IIC_DISPLAY`で変更してください。
 

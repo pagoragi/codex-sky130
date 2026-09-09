@@ -1,0 +1,5 @@
+* SKY130A CMOS inverter reference netlist for LVS
+.subckt cmos_inverter_layout GND VDD in out
+XM_P out in VDD VDD sky130_fd_pr__pfet_01v8 L=0.15 W=2.0 nf=1
+XM_N out in GND GND sky130_fd_pr__nfet_01v8 L=0.15 W=1.0 nf=1
+.ends cmos_inverter_layout

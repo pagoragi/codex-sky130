@@ -1,0 +1,53 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1788929200
+<< locali >>
+rect -25 -251 25 -201
+rect -25 1644 25 1694
+<< metal1 >>
+rect -600 -500 600 -450
+rect 21 -61 417 -1
+rect -29 -255 417 -197
+rect 383 -500 417 -1
+rect -76 -63 -12 1
+rect -64 101 64 282
+rect -600 2700 600 2750
+rect 21 1934 417 1994
+rect -29 1640 417 1698
+rect 383 1640 417 2750
+rect -76 1932 -12 1996
+rect -64 2205 64 2382
+<< viali >>
+rect -17 -243 17 -209
+rect -17 1652 17 1686
+<< via1 >>
+rect -70 -57 -18 -5
+rect -26 224 26 276
+rect -70 1938 -18 1990
+rect -26 2324 26 2376
+<< metal2 >>
+rect -236 -67 -12 5
+rect -236 -67 -164 2000
+rect -236 1928 -12 2000
+rect -32 214 236 286
+rect 164 214 236 2386
+rect -32 2314 236 2386
+<< labels >>
+rlabel metal1 -550 -500 -450 -450 0 GND
+port 1 nsew
+rlabel metal1 -550 2700 -450 2750 0 VDD
+port 2 nsew
+rlabel metal2 164 1100 236 1200 0 in
+port 3 nsew
+rlabel metal2 -236 800 -164 900 0 out
+port 4 nsew
+use sky130_fd_pr__nfet_01v8_PNATEX MN
+timestamp 1788927353
+transform 1 0 0 0 1 0
+box -158 -226 158 226
+use sky130_fd_pr__pfet_01v8_RLCJU3 MP
+timestamp 1788927372
+transform 1 0 0 0 1 2000
+box -158 1669 158 2331
+<< end >>
