@@ -22,6 +22,7 @@ make inverter
 make inverter-layout-check
 make xschem
 make magic
+make klayout
 ```
 
 プロジェクト管理のnoVNCデスクトップは、既定で <http://localhost:6080/> から開けます。既存の`iic-osic-tools_xvnc_uid_501`コンテナが動いている場合は、それも自動検出します。
@@ -83,6 +84,8 @@ make inverter-extract      # レイアウトからSPICEを抽出
 make inverter-lvs          # Netgenで回路図と比較
 make inverter-layout-check # DRCとLVSをまとめて実行
 make magic                 # Magic GUIでレイアウトを開く
+make inverter-gds          # MagicレイアウトからGDSを生成
+make klayout               # SKY130レイヤー設定付きでGDSをKLayoutに開く
 ```
 
 検証済みの結果は、Magic DRCが0件、Netgen LVSが`Circuits match uniquely`です。

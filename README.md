@@ -16,6 +16,7 @@ make inverter
 make inverter-layout-check
 make xschem
 make magic
+make klayout
 ```
 
 The project-managed noVNC desktop uses <http://localhost:6080/> by default.
@@ -90,6 +91,8 @@ make inverter-extract      # extract a SPICE netlist from layout
 make inverter-lvs          # compare layout and schematic with Netgen
 make inverter-layout-check # run DRC and LVS
 make magic                 # open the layout in the Magic GUI
+make inverter-gds          # write GDS from the Magic layout
+make klayout               # open the GDS with SKY130 layer properties
 ```
 
 The checked result is zero Magic DRC errors and Netgen LVS reporting `Circuits match uniquely`.

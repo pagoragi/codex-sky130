@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: start stop status doctor smoke inverter-netlist inverter-sim inverter inverter-layout inverter-drc inverter-extract inverter-lvs inverter-layout-check xschem magic shell clean
+.PHONY: start stop status doctor smoke inverter-netlist inverter-sim inverter inverter-layout inverter-drc inverter-extract inverter-lvs inverter-gds inverter-layout-check xschem magic klayout shell clean
 
 start:
 	@./bin/start
@@ -51,6 +51,10 @@ inverter-lvs: inverter-extract
 	@./bin/eda run bash -lc 'netgen -batch lvs "build/inverter-layout/cmos_inverter_layout.spice cmos_inverter_flat" "design/spice/cmos_inverter_lvs.spice cmos_inverter_layout" "$$PDKPATH/libs.tech/netgen/sky130A_setup.tcl" build/inverter-layout/lvs.log'
 	@grep -q "Circuits match uniquely" build/inverter-layout/lvs.log
 
+inverter-gds: inverter-layout
+	@./bin/eda run magic -dnull -noconsole -rcfile /foss/pdks/sky130A/libs.tech/magic/sky130A.magicrc scripts/inverter-gds.tcl | tee build/inverter-layout/gds.log
+	@test -s build/inverter-layout/cmos_inverter_layout.gds
+
 inverter-layout-check: inverter-drc inverter-lvs
 
 xschem:
@@ -58,6 +62,9 @@ xschem:
 
 magic:
 	@./bin/eda magic
+
+klayout: inverter-gds
+	@./bin/eda klayout
 
 shell:
 	@./bin/eda shell
