@@ -78,6 +78,8 @@ make xschem            # SKY130A設定で回路図を開く
 
 `design/magic/cmos_inverter_layout.mag`は、回路図と同じ寸法のNMOS/PMOSを配置したMagicレイアウトです。M1を電源とbody tie、M2を入力と出力に使用しています。
 
+レイアウト外形は約`2.5 um x 9.0 um`（`22.5 um^2`）です。初期の検証用レイアウト`6.0 um x 16.25 um`（`97.5 um^2`）から、素子間隔と端子配線をDRC限界に合わせて詰め、面積を約77%削減しています。
+
 ```sh
 make inverter-drc          # Magic DRC
 make inverter-extract      # レイアウトからSPICEを抽出

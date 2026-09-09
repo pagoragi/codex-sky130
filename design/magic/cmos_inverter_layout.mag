@@ -1,46 +1,45 @@
 magic
 tech sky130A
 magscale 1 2
-timestamp 1788929200
+timestamp 1788938400
 << locali >>
 rect -25 -251 25 -201
-rect -25 1644 25 1694
+rect -25 644 25 694
 << metal1 >>
-rect -600 -500 600 -450
-rect 21 -61 417 -1
-rect -29 -255 417 -197
-rect 383 -500 417 -1
+rect -250 -350 250 -300
+rect 27 -300 61 -31
+rect -29 -255 61 -197
 rect -76 -63 -12 1
-rect -64 101 64 282
-rect -600 2700 600 2750
-rect 21 1934 417 1994
-rect -29 1640 417 1698
-rect 383 1640 417 2750
-rect -76 1932 -12 1996
-rect -64 2205 64 2382
+rect -32 97 32 161
+rect -250 1400 250 1450
+rect 21 934 129 994
+rect -29 640 129 698
+rect 95 640 129 1400
+rect -76 932 -12 996
+rect -32 1196 32 1260
 << viali >>
 rect -17 -243 17 -209
-rect -17 1652 17 1686
+rect -17 652 17 686
 << via1 >>
 rect -70 -57 -18 -5
-rect -26 224 26 276
-rect -70 1938 -18 1990
-rect -26 2324 26 2376
+rect -26 103 26 155
+rect -70 938 -18 990
+rect -26 1202 26 1254
 << metal2 >>
-rect -236 -67 -12 5
-rect -236 -67 -164 2000
-rect -236 1928 -12 2000
-rect -32 214 236 286
-rect 164 214 236 2386
-rect -32 2314 236 2386
+rect -216 -67 -12 5
+rect -216 -67 -144 1000
+rect -216 928 -12 1000
+rect -32 97 216 161
+rect 144 97 216 1260
+rect -32 1196 216 1260
 << labels >>
-rlabel metal1 -550 -500 -450 -450 0 GND
+rlabel metal1 -220 -350 -120 -300 0 GND
 port 1 nsew
-rlabel metal1 -550 2700 -450 2750 0 VDD
+rlabel metal1 -220 1400 -120 1450 0 VDD
 port 2 nsew
-rlabel metal2 164 1100 236 1200 0 in
+rlabel metal2 144 600 216 700 0 in
 port 3 nsew
-rlabel metal2 -236 800 -164 900 0 out
+rlabel metal2 -216 400 -144 500 0 out
 port 4 nsew
 use sky130_fd_pr__nfet_01v8_PNATEX MN
 timestamp 1788927353
@@ -48,6 +47,6 @@ transform 1 0 0 0 1 0
 box -158 -226 158 226
 use sky130_fd_pr__pfet_01v8_RLCJU3 MP
 timestamp 1788927372
-transform 1 0 0 0 1 2000
-box -158 1669 158 2331
+transform 1 0 0 0 1 1000
+box -158 669 158 1331
 << end >>

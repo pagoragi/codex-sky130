@@ -85,6 +85,8 @@ make xschem            # open the schematic with the SKY130A symbol paths
 
 `design/magic/cmos_inverter_layout.mag` contains the Magic layout for the same NMOS and PMOS dimensions as the schematic. Metal 1 carries the power and body-tie connections; Metal 2 carries the input and output.
 
+The compact layout measures approximately `2.5 um x 9.0 um` (`22.5 um^2`). Device spacing and terminal routing were tightened to the DRC limit, reducing area by about 77% from the initial `6.0 um x 16.25 um` (`97.5 um^2`) verification layout.
+
 ```sh
 make inverter-drc          # Magic DRC
 make inverter-extract      # extract a SPICE netlist from layout
