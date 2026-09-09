@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: start stop status doctor smoke inverter-netlist inverter-sim inverter inverter-layout inverter-drc inverter-extract inverter-lvs inverter-gds inverter-layout-check xschem magic klayout shell clean
+.PHONY: start stop status doctor smoke inverter-netlist inverter-sim inverter inverter-layout inverter-drc inverter-extract inverter-lvs inverter-pex inverter-pex-sim inverter-gds inverter-layout-check xschem magic klayout shell clean
 
 start:
 	@./bin/start
@@ -50,6 +50,15 @@ inverter-extract: inverter-layout
 inverter-lvs: inverter-extract
 	@./bin/eda run bash -lc 'netgen -batch lvs "build/inverter-layout/cmos_inverter_layout.spice cmos_inverter_flat" "design/spice/cmos_inverter_lvs.spice cmos_inverter_layout" "$$PDKPATH/libs.tech/netgen/sky130A_setup.tcl" build/inverter-layout/lvs.log'
 	@grep -q "Circuits match uniquely" build/inverter-layout/lvs.log
+
+inverter-pex: inverter-layout
+	@./bin/eda run magic -dnull -noconsole -rcfile /foss/pdks/sky130A/libs.tech/magic/sky130A.magicrc scripts/inverter-pex.tcl | tee build/inverter-layout/pex.log
+	@./bin/eda run test -s build/inverter-layout/cmos_inverter_pex.spice
+	@./bin/eda run bash -c 'python3 scripts/analyze-pex.py build/inverter-layout/cmos_inverter_pex.spice | tee build/inverter-layout/pex-summary.json'
+
+inverter-pex-sim: inverter-pex
+	@./bin/eda run ngspice -b -o build/inverter-layout/pex-tran.log tests/cmos_inverter_pex_tran.spice
+	@./bin/eda run test -s build/inverter-layout/cmos_inverter_pex_tran.dat
 
 inverter-gds: inverter-layout
 	@./bin/eda run magic -dnull -noconsole -rcfile /foss/pdks/sky130A/libs.tech/magic/sky130A.magicrc scripts/inverter-gds.tcl | tee build/inverter-layout/gds.log

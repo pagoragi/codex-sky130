@@ -89,6 +89,8 @@ make xschem            # open the schematic with the SKY130A symbol paths
 make inverter-drc          # Magic DRC
 make inverter-extract      # extract a SPICE netlist from layout
 make inverter-lvs          # compare layout and schematic with Netgen
+make inverter-pex          # extract distributed resistance and parasitic capacitance
+make inverter-pex-sim      # run a transient simulation with the PEX netlist
 make inverter-layout-check # run DRC and LVS
 make magic                 # open the layout in the Magic GUI
 make inverter-gds          # write GDS from the Magic layout
@@ -96,6 +98,8 @@ make klayout               # open the GDS with SKY130 layer properties
 ```
 
 The checked result is zero Magic DRC errors and Netgen LVS reporting `Circuits match uniquely`.
+
+`make inverter-pex` writes a separate RC-annotated SPICE netlist to `build/inverter-layout/cmos_inverter_pex.spice` using Magic's SKY130 extraction rules. This is intended for open-source design iteration and is not a claim of equivalence to a foundry-qualified sign-off extractor.
 
 The default noVNC display is `:1`. Override it with `IIC_DISPLAY` only if the
 container was launched with a different X display.

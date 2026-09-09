@@ -1,0 +1,19 @@
+* SKY130A CMOS inverter transient simulation with extracted RC parasitics
+.lib /foss/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice tt
+.include build/inverter-layout/cmos_inverter_pex.spice
+
+VSUPPLY VDD GND 1.8
+VIN in GND PULSE(0 1.8 1n 20p 20p 2n 4n)
+CLOAD out GND 5f
+
+.control
+set noaskquit
+set wr_singlescale
+tran 1p 8n
+wrdata build/inverter-layout/cmos_inverter_pex_tran.dat v(in) v(out)
+meas tran tphl trig v(in) val=0.9 rise=1 targ v(out) val=0.9 fall=1
+meas tran tplh trig v(in) val=0.9 fall=1 targ v(out) val=0.9 rise=1
+quit
+.endc
+
+.end

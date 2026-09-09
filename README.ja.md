@@ -82,6 +82,8 @@ make xschem            # SKY130A設定で回路図を開く
 make inverter-drc          # Magic DRC
 make inverter-extract      # レイアウトからSPICEを抽出
 make inverter-lvs          # Netgenで回路図と比較
+make inverter-pex          # 配線・接合のRC寄生を抽出
+make inverter-pex-sim      # PEXネットリストで過渡解析
 make inverter-layout-check # DRCとLVSをまとめて実行
 make magic                 # Magic GUIでレイアウトを開く
 make inverter-gds          # MagicレイアウトからGDSを生成
@@ -89,6 +91,8 @@ make klayout               # SKY130レイヤー設定付きでGDSをKLayoutに�
 ```
 
 検証済みの結果は、Magic DRCが0件、Netgen LVSが`Circuits match uniquely`です。
+
+`make inverter-pex`はLVS用ネットリストとは別に、MagicのSKY130抽出ルールを使って分布抵抗と寄生容量を含むSPICEを`build/inverter-layout/cmos_inverter_pex.spice`へ生成します。これはオープンソース環境での設計反復用LPEです。ファウンドリ認定済みsign-off抽出との同一性を保証するものではありません。
 
 既定のnoVNCディスプレイは`:1`です。コンテナが別のX displayで起動されている場合のみ、`IIC_DISPLAY`で変更してください。
 
