@@ -6,11 +6,11 @@ CodexからIIC-OSIC-TOOLSを直接操作するための、GitHubで再現可能�
 
 ## デモ
 
-Codexに1.8 V動作の5トランジスタOTAを依頼し、環境確認、回路生成、ngspiceシミュレーション、結果解析、XschemでのGUI確認まで実行した例です。
+Codexに、SKY130Aで動作する1.8 Vの5トランジスタOTAを一度の指示で依頼したデモです。回路設計とngspiceシミュレーションから、対称性・マッチング・dummy・guard ring・面積を考慮したMagicレイアウト、DRC/LVS、RC寄生抽出後の再シミュレーション、Xschem/Magic/KLayoutでのGUI確認までを実行しています。
 
-https://github.com/user-attachments/assets/a9e34c44-73c1-4a99-9bd0-df236b91712c
+https://github.com/user-attachments/assets/2a26e0c7-95af-4896-bebb-0338ed4e6c7b
 
-元動画の0:00〜10:15は30倍速、それ以降は結果を確認しやすいように2倍速にしています。
+元動画の0:00〜16:58は60倍速、それ以降はレイアウトと検証結果を確認しやすいように2倍速にしています。変換後の動画に音声はありません。
 
 ## クイックスタート
 
